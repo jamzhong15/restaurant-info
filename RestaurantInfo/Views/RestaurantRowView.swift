@@ -29,30 +29,43 @@ struct RestaurantRowView: View {
                 
                 Spacer()
             }
+            
+            Divider()
+                .frame(width: 1)
+                .background(Color.gray.opacity(0.2))
+                .padding(.vertical, 8)
 
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Text(restaurant.name)
-                        .font(.subheadline)
+                        .font(.headline)
                         .bold()
 
                     Spacer()
 
                     HStack(spacing: 4) {
                         Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
+                            .foregroundColor(.orange)
+                            .font(.caption)
+
                         Text("\(restaurant.rating.starRating, specifier: "%.1f")")
-                            .font(.subheadline)
+                            .font(.caption)
+                            .fontWeight(.medium)
                     }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.orange.opacity(0.1))
+                    .foregroundColor(.orange)
+                    .clipShape(Capsule())
                 }
 
-                Text(restaurant.cuisines.map { $0.name }.joined(separator: ", "))
+                Text(restaurant.cuisines.map { $0.name }.joined(separator: " • "))
                     .font(.subheadline)
                     .foregroundColor(.secondary)
 
                 HStack(spacing: 4) {
                     Image(systemName: "mappin")
-                        .foregroundColor(.red)
+                        .foregroundColor(.orange)
                     Text("\(restaurant.address.firstLine), \(restaurant.address.city)")
                         .font(.footnote)
                         .foregroundColor(.gray)
@@ -63,7 +76,7 @@ struct RestaurantRowView: View {
         }
         .padding()
         .background(Color(.systemBackground))
-        .cornerRadius(16)
+        .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.1), radius: 6, x: 0, y: 2)
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
