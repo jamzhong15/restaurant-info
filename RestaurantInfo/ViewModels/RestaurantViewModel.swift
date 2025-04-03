@@ -65,4 +65,11 @@ class RestaurantViewModel: ObservableObject {
             }
         }.resume()
     }
+    
+    func isValidPostcode(_ postcode: String) -> Bool {
+        let cleaned = postcode.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        let regex = try! NSRegularExpression(pattern: #"^[A-Z]{1,2}[0-9R][0-9A-Z]?\s?[0-9][A-Z]{2}$"#)
+        let range = NSRange(location: 0, length: cleaned.utf16.count)
+        return regex.firstMatch(in: cleaned, options: [], range: range) != nil
+    }
 }

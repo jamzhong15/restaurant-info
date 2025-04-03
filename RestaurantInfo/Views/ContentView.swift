@@ -28,8 +28,13 @@ struct ContentView: View {
                         TextField("Enter postcode", text: $postcode)
                             .textFieldStyle(.plain)
                             .onSubmit {
-                                viewModel.fetchRestaurants(for: postcode)
+                                if viewModel.isValidPostcode(postcode) {
+                                        viewModel.fetchRestaurants(for: postcode)
+                                    } else {
+                                        viewModel.errorMessage = "Please enter a valid UK postcode."
+                                    }
                             }
+                            .textInputAutocapitalization(.characters)
                     }
                     .padding(12)
                     .background(Color(.systemGray5))
@@ -59,7 +64,6 @@ struct ContentView: View {
                         .padding(.vertical)
                     }
                     
-                    Spacer()
                 }
                 .padding(.top)
                 .navigationTitle("Nearby Restaurants")

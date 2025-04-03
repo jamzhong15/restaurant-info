@@ -66,6 +66,7 @@ struct RestaurantRowView: View {
                 HStack(spacing: 4) {
                     Image(systemName: "mappin")
                         .foregroundColor(.orange)
+                        .font(.footnote)
                     Text("\(restaurant.address.firstLine), \(restaurant.address.city)")
                         .font(.footnote)
                         .foregroundColor(.gray)
