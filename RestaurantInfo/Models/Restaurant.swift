@@ -13,6 +13,7 @@ struct Restaurant: Codable, Identifiable {
     let cuisines: [Cuisine]
     let rating: Rating
     let address: Address
+    let logoUrl: String?
 
     struct Cuisine: Codable {
         let name: String

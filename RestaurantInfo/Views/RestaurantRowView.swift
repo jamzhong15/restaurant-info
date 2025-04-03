@@ -7,12 +7,26 @@ struct RestaurantRowView: View {
         HStack(alignment: .top, spacing: 12) {
             VStack {
                 Spacer()
-                Image(systemName: "fork.knife") // Replace with logo later if needed
-                    .resizable()
-                    .scaledToFit()
+                
+                if let logoUrl = restaurant.logoUrl, let url = URL(string: logoUrl) {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                    } placeholder: {
+                        ProgressView()
+                    }
                     .frame(width: 50, height: 50)
-                    .foregroundColor(.orange)
-                    .padding(.top, 20)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                } else {
+                    Image(systemName: "fork.knife")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.orange)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                
                 Spacer()
             }
 
