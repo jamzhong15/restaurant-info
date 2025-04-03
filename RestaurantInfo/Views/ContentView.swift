@@ -8,22 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var postcode = "E1 6AN"
+    @State private var postcode = ""
     @StateObject private var viewModel = RestaurantViewModel()
 
     var body: some View {
         NavigationStack {
             VStack(spacing: 16) {
                 // 🔹 Postcode input
-                TextField("Enter postcode", text: $postcode)
-                    .textFieldStyle(.roundedBorder)
-                    .padding(.horizontal)
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.orange)
 
-                // 🔹 Fetch button
-                Button("Search") {
-                    viewModel.fetchRestaurants(for: postcode)
+                    TextField("Enter postcode", text: $postcode)
+                        .textFieldStyle(.plain)
+                        .onSubmit {
+                            viewModel.fetchRestaurants(for: postcode)
+                        }
                 }
-                .buttonStyle(.borderedProminent)
+                .padding(10)
+                .background(Color(.systemGray6))
+                .cornerRadius(10)
+                .padding(.horizontal)
 
                 // 🔹 Loading state
                 if viewModel.isLoading {
@@ -51,7 +56,8 @@ struct ContentView: View {
                 Spacer()
             }
             .padding(.top)
-            .navigationTitle("Restaurants")
+            .navigationTitle("Nearby Restaurants")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

@@ -19,7 +19,7 @@ struct RestaurantRowView: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Text(restaurant.name)
-                        .font(.title3)
+                        .font(.subheadline)
                         .bold()
 
                     Spacer()
