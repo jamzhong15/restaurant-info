@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var postcode = ""
     @StateObject private var viewModel = RestaurantViewModel()
+    @State private var showingFilterSheet = false
+    
 
     var body: some View {
         NavigationStack {
@@ -35,6 +37,14 @@ struct ContentView: View {
                                     }
                             }
                             .textInputAutocapitalization(.characters)
+                        
+                        Button {
+                                showingFilterSheet = true
+                            } label: {
+                                Image(systemName: "slider.horizontal.3")
+                                    .foregroundColor(.orange)
+                                    .font(.title3)
+                            }
                     }
                     .padding(12)
                     .background(Color(.systemGray5))
@@ -57,7 +67,7 @@ struct ContentView: View {
                     // Restaurant list
                     ScrollView {
                         LazyVStack(spacing: 1) {
-                            ForEach(viewModel.restaurants.prefix(10)) { restaurant in
+                            ForEach(viewModel.filteredRestaurants.prefix(10)) { restaurant in
                                 RestaurantRowView(restaurant: restaurant)
                             }
                         }
@@ -68,12 +78,16 @@ struct ContentView: View {
                 .padding(.top)
                 .navigationTitle("Nearby Restaurants")
                 .navigationBarTitleDisplayMode(.inline)
+                .sheet(isPresented: $showingFilterSheet) {
+                    FilterSheet(
+                        selectedRating: $viewModel.minimumRating
+                    )
+                }
             }
         }
     }
     
 }
-
 
 #Preview {
     ContentView()

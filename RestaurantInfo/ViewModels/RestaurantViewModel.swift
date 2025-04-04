@@ -15,6 +15,15 @@ class RestaurantViewModel: ObservableObject {
     @Published var restaurants: [Restaurant] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String? = nil
+    @Published var minimumRating: Double? = nil
+    
+    var filteredRestaurants: [Restaurant] {
+        guard let minRating = minimumRating else {
+            return restaurants
+        }
+
+        return restaurants.filter { $0.rating.starRating >= minRating }
+    }
 
     func fetchRestaurants(for postcode: String) {
         guard let encodedPostcode = postcode.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
@@ -72,4 +81,5 @@ class RestaurantViewModel: ObservableObject {
         let range = NSRange(location: 0, length: cleaned.utf16.count)
         return regex.firstMatch(in: cleaned, options: [], range: range) != nil
     }
+    
 }

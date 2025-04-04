@@ -84,3 +84,4 @@ struct RestaurantRowView: View {
         .padding(.vertical, 4)
     }
 }
+
