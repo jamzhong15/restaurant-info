@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Restaurant: Codable, Identifiable {
     let id: String
@@ -26,5 +27,19 @@ struct Restaurant: Codable, Identifiable {
     struct Address: Codable {
         let firstLine: String
         let city: String
+        let location: Location
+
+        struct Location: Codable {
+            let type: String
+            let coordinates: [Double]
+        }
+    }
+}
+
+extension Restaurant {
+    var coordinate: CLLocationCoordinate2D? {
+        let coords = address.location.coordinates
+        guard coords.count == 2 else { return nil }
+        return CLLocationCoordinate2D(latitude: coords[1], longitude: coords[0])
     }
 }

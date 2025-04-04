@@ -6,50 +6,54 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
     @State private var postcode = ""
     @StateObject private var viewModel = RestaurantViewModel()
     @State private var showingFilterSheet = false
+    @State private var mapRegion = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 51.5074, longitude: -0.1278),
+        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+    )
+    @State private var panelOffset: CGFloat = 400 // starting height
+    @State private var hasSearched = false
     
 
     var body: some View {
         NavigationStack {
             ZStack {
                 
-                Color(.systemGray6)
-                    .ignoresSafeArea()
+                RestaurantMapView(
+                    region: $mapRegion,
+                    restaurants: Array(viewModel.filteredRestaurants.prefix(10))
+                )
                 
                 VStack(spacing: 16) {
-                    // Postcode input
-                    HStack {
-                        Image(systemName: "magnifyingglass")
-                            .foregroundColor(.orange)
-                            .font(.title2)
-                        
-                        TextField("Enter postcode", text: $postcode)
-                            .textFieldStyle(.plain)
-                            .onSubmit {
-                                if viewModel.isValidPostcode(postcode) {
-                                        viewModel.fetchRestaurants(for: postcode)
-                                    } else {
-                                        viewModel.errorMessage = "Please enter a valid UK postcode."
+                    SearchBarView(
+                        postcode: $postcode,
+                        onSubmit: {
+                            if viewModel.isValidPostcode(postcode) {
+                                viewModel.fetchRestaurants(for: postcode)
+                                hasSearched = true
+                                
+                                // Focus map on postcode
+                                viewModel.focusMap(on: postcode) { coordinate in
+                                    if let coordinate = coordinate {
+                                        mapRegion = MKCoordinateRegion(
+                                            center: coordinate,
+                                            span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
+                                        )
                                     }
+                                }
+                            } else {
+                                viewModel.errorMessage = "Please enter a valid UK postcode."
                             }
-                            .textInputAutocapitalization(.characters)
-                        
-                        Button {
-                                showingFilterSheet = true
-                            } label: {
-                                Image(systemName: "slider.horizontal.3")
-                                    .foregroundColor(.orange)
-                                    .font(.title3)
-                            }
-                    }
-                    .padding(12)
-                    .background(Color(.systemGray5))
-                    .cornerRadius(10)
-                    .padding(.horizontal)
+                        },
+                        onFilterTap: {
+                            showingFilterSheet = true
+                        }
+                    )
                     
                     // Loading state
                     if viewModel.isLoading {
@@ -65,14 +69,15 @@ struct ContentView: View {
                     }
                     
                     // Restaurant list
-                    ScrollView {
-                        LazyVStack(spacing: 1) {
-                            ForEach(viewModel.filteredRestaurants.prefix(10)) { restaurant in
-                                RestaurantRowView(restaurant: restaurant)
-                            }
-                        }
-                        .padding(.vertical)
+                    if hasSearched {
+                        RestaurantPanelView(
+                            restaurants: viewModel.filteredRestaurants,
+                            minimumRating: viewModel.minimumRating,
+                            offset: $panelOffset
+                        )
                     }
+                    
+                    Spacer()
                     
                 }
                 .padding(.top)

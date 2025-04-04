@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct APIResponse: Codable {
     let restaurants: [Restaurant]
@@ -81,5 +82,16 @@ class RestaurantViewModel: ObservableObject {
         let range = NSRange(location: 0, length: cleaned.utf16.count)
         return regex.firstMatch(in: cleaned, options: [], range: range) != nil
     }
+    
+    func focusMap(on postcode: String, completion: @escaping (CLLocationCoordinate2D?) -> Void) {
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(postcode) { placemarks, error in
+                if let coordinate = placemarks?.first?.location?.coordinate {
+                    completion(coordinate)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
     
 }
