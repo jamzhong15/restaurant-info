@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		54A5BDFF2DA1E46F004084F7 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 54A5BDFE2DA1E46F004084F7 /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		545C5B4A2D9C757F0047A81B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		545C5B392D9C757D0047A81B /* RestaurantInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RestaurantInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		545C5B492D9C757F0047A81B /* RestaurantInfoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantInfoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		545C5B532D9C757F0047A81B /* RestaurantInfoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RestaurantInfoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		54A5BDFE2DA1E46F004084F7 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		545C5B302D9C757D0047A81B = {
 			isa = PBXGroup;
 			children = (
+				54A5BDFE2DA1E46F004084F7 /* README.md */,
 				545C5B3B2D9C757D0047A81B /* RestaurantInfo */,
 				545C5B4C2D9C757F0047A81B /* RestaurantInfoTests */,
 				545C5B562D9C757F0047A81B /* RestaurantInfoUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54A5BDFF2DA1E46F004084F7 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
