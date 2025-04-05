@@ -18,6 +18,7 @@ struct ContentView: View {
     )
     @State private var panelOffset: CGFloat = 400 // starting height
     @State private var hasSearched = false
+    @State private var selectedRestaurantID: String? = nil
     
 
     var body: some View {
@@ -26,7 +27,8 @@ struct ContentView: View {
                 
                 RestaurantMapView(
                     region: $mapRegion,
-                    restaurants: Array(viewModel.filteredRestaurants.prefix(10))
+                    restaurants: Array(viewModel.filteredRestaurants.prefix(10)),
+                    selectedID: $selectedRestaurantID
                 )
                 
                 VStack(spacing: 16) {
