@@ -26,7 +26,8 @@ struct RestaurantPanelView: View {
                         RestaurantRowView(restaurant: restaurant)
                     }
                 }
-                .padding()
+                .padding(.bottom, 50)
+                .padding(.top)
             }
         }
         .background(.ultraThinMaterial)
