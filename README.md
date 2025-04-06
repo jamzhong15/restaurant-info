@@ -1,6 +1,6 @@
 # RestaurantLocator - iOS Project
 
-A swiftUI app that allows users to search for restaurants by postcode, see their information and view on an interactive map.
+A swiftUI app that allows users to search for restaurants by postcode, view them on an interactive map and explore their details.
 
 ## Features
 
@@ -23,7 +23,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/jamzhong15/RestaurantInfo.git
-
+```
 ### Usage
 
 1. Open the project in xcode and test in either a simulator or build to an iOS device.
@@ -36,8 +36,11 @@ git clone https://github.com/jamzhong15/RestaurantInfo.git
 - Only need to show the first 10 restaurants returned with no ranking by distance, popularity, etc.
 - Some tags in the cuisines list (e.g. "£8 off", "Low Delivery Fee") are treated as valid cuisines and displayed.
 - We are assuming that the Just Eat API is functional, stable and publically accessible without any authentication for any user.
-- 
 
-
-
+## Improvements
+- Add unit and UI tests to ensure core logic and interface behave as expected.
+- For restaurants with many cuisine types, the tags can appear cluttered. This could be improved by implementing a “Show More/+” toggle or using a horizontal scroll view to display the tags.
+- We could enhance interactivity by highlighting the corresponding restaurant card when a map pin is tapped.
+- To improve decoding robustness and clarity, especially as we use more of the API, it may be beneficial to implement custom CodingKeys.
+- Additional filtering options, such as delivery availability, price range, or sorting by distance.
 
