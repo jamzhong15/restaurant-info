@@ -26,7 +26,7 @@ A swiftUI app that allows users to search for restaurants by postcode, view them
 Clone the repository:
 
 ```bash
-git clone https://github.com/jamzhong15/RestaurantInfo.git
+git clone https://github.com/jamzhong15/restaurant-info.git
 ```
 ```bash
 cd RestaurantInfo
